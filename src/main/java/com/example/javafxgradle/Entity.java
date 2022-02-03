@@ -1,5 +1,6 @@
 package com.example.javafxgradle;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
@@ -23,18 +24,30 @@ public class Entity {
         this.v = v;
     }
 
-    public void update(ArrayList<String> input) {
+    public void update(ArrayList<String> input, Canvas canvas) {
         if (input.contains("w")) {
             setY(getY() - v);
+            if (y + h < 0) {
+                y = canvas.getHeight() - v;
+            }
         }
         if (input.contains("s")) {
             setY(getY() + v);
+            if (y > canvas.getHeight()) {
+                y = -h + v;
+            }
         }
         if (input.contains("a")) {
             setX(getX() - v);
+            if (x + w < 0) {
+                x = canvas.getWidth() - v;
+            }
         }
         if (input.contains("d")) {
             setX(getX() + v);
+            if (x > canvas.getWidth()) {
+                x = -w + v;
+            }
         }
     }
 
